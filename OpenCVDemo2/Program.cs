@@ -18,7 +18,7 @@ namespace OpenCVDemo2
             var mask = new Mat();
             var newSize = new Size(1280, 720);
             var capture = new VideoCapture(@"C:\Users\PR2\Videos\HighwayTrafficVideo2.mp4");
-            var tracker = TrackerCSRT.Create();
+            //var tracker = TrackerCSRT.Create();
 
             //Object detection
             var objectDetector = BackgroundSubtractorMOG2.Create();
@@ -36,6 +36,7 @@ namespace OpenCVDemo2
                 Point[][] contours;
                 HierarchyIndex[] hIndexes;
 
+                //Setting up contours
                 Cv2.Threshold(mask, mask, 254, 255, ThresholdTypes.Binary);
                 Cv2.FindContours(mask, out contours, out hIndexes, mode: RetrievalModes.CComp, method: ContourApproximationModes.ApproxSimple);
 
@@ -51,16 +52,14 @@ namespace OpenCVDemo2
                     var area = Cv2.ContourArea(contours[cIndex]);
                     if (area > 200)
                     {
-                        //Cv2.DrawContours(image, contours, cIndex, color: Scalar.All(1), thickness: 2, lineType: LineTypes.Link4, hierarchy: hIndexes, maxLevel: 0);
+                        //Setting up rectangle
                         var rectangle = Cv2.BoundingRect(contours[cIndex]);
 
                         Cv2.Rectangle(image, rectangle, Scalar.All(1), thickness: 2, lineType: LineTypes.Link4, 0);
 
+                        //Writing rectangle coords to console
                         detections.Add(new int[] {rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height});
                         Console.WriteLine(string.Join(",", detections.Last()));
-
-                        
-                        //tracker.Update(image, ref rectangle);
                     }
                     cIndex = hIndexes[cIndex].Next;
                 }
@@ -71,7 +70,7 @@ namespace OpenCVDemo2
                 var key = (char)Cv2.WaitKey(10);
                 switch ((char)Cv2.WaitKey(10))
                 {
-                    case (char)27: // ESC
+                    case (char)27:
                         run = false;
                         break;
                 }
