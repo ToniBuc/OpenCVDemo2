@@ -60,7 +60,7 @@ namespace OpenCVDemo2
                         Console.WriteLine(string.Join(",", detections.Last()));
 
                         
-                        tracker.Update(image, ref rectangle);
+                        //tracker.Update(image, ref rectangle);
                     }
                     cIndex = hIndexes[cIndex].Next;
                 }
