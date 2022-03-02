@@ -19,7 +19,7 @@ namespace OpenCVDemo2
             var image = new Mat();
             var newSize = new OpenCvSharp.Size(1280, 720);
             var capture = new VideoCapture(@"D:\PETS09-S2L1-raw.mp4"); //place path to any video you see fit
-            var scorer = new YoloScorer<YoloCocoP5Model>(@"D:\repos\OpenCVDemo2\yolov5s.onnx");
+            var scorer = new YoloScorer<YoloCocoP5Model>(@"D:\repos\OpenCVDemo2\OpenCVDemo2\YoloModel\yolov5s.onnx");
 
             #region Yolov5 (still image)
 
